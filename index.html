@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript 在线工具箱</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f3f6fb;
+  color: #222;
+}
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+}
+h1 {
+  text-align: center;
+  color: #2563eb;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin: 18px 0;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px #0000000d;
+}
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  resize: vertical;
+}
+button {
+  padding: 11px 18px;
+  margin: 10px 5px 0 0;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+}
+button:active {
+  opacity: .7;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f1f5f9;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 30px;
+}
+footer {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  margin-top: 30px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>JavaScript 在线工具箱</h1>
+<p style="text-align:center;color:#777">
+免费、简单、实用的在线开发工具
+</p>
+
+<div class="card">
+<h3>JSON 格式化工具</h3>
+<textarea id="json" placeholder='请输入 JSON，例如 {"name":"test"}'></textarea>
+<button onclick="formatJSON()">格式化</button>
+<button onclick="clearJSON()">清空</button>
+<pre id="jsonResult">结果显示在这里</pre>
+</div>
+
+<div class="card">
+<h3>Base64 编码与解码</h3>
+<textarea id="base" placeholder="请输入需要处理的文字"></textarea>
+<button onclick="encodeBase()">编码</button>
+<button onclick="decodeBase()">解码</button>
+<button onclick="clearBase()">清空</button>
+<pre id="baseResult">结果显示在这里</pre>
+</div>
+
+<div class="card">
+<h3>JavaScript 字符串长度</h3>
+<textarea id="textInput" placeholder="请输入文字"></textarea>
+<button onclick="countText()">统计长度</button>
+<pre id="textResult">统计结果显示在这里</pre>
+</div>
+
+<footer>
+© 2026 JavaScript 在线工具箱
+</footer>
+</div>
+
+<script>
+function formatJSON() {
+  try {
+    const value = JSON.parse(
+      document.getElementById("json").value
+    );
+    document.getElementById("jsonResult").textContent =
+      JSON.stringify(value, null, 2);
+  } catch (e) {
+    document.getElementById("jsonResult").textContent =
+      "JSON 格式错误：" + e.message;
+  }
+}
+
+function clearJSON() {
+  document.getElementById("json").value = "";
+  document.getElementById("jsonResult").textContent = "";
+}
+
+function encodeBase() {
+  const value = document.getElementById("base").value;
+  document.getElementById("baseResult").textContent =
+    btoa(unescape(encodeURIComponent(value)));
+}
+
+function decodeBase() {
+  try {
+    const value = document.getElementById("base").value;
+    document.getElementById("baseResult").textContent =
+      decodeURIComponent(escape(atob(value)));
+  } catch (e) {
+    document.getElementById("baseResult").textContent =
+      "解码失败，请检查输入内容";
+  }
+}
+
+function clearBase() {
+  document.getElementById("base").value = "";
+  document.getElementById("baseResult").textContent = "";
+}
+
+function countText() {
+  const value = document.getElementById("textInput").value;
+  document.getElementById("textResult").textContent =
+    "字符数量：" + [...value].length +
+    "\nUTF-16 长度：" + value.length;
+}
+</script>
+
+</body>
+</html>
